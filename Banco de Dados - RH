@@ -1,0 +1,38 @@
+CREATE TABLE setor (
+	idsetor int(2) Primary Key,
+	nomesetor varchar (30), 
+	divsetor varchar (30)
+);
+CREATE TABLE cargo (
+	idcargo int Primary Key,
+	funcao varchar (40),
+	nomesetor varchar (30)
+);
+CREATE TABLE colaboradores (
+    idcolaboradores int  Primary Key,
+    nome VARCHAR(40),
+    cpf NUMERIC(40),
+    genero CHAR(1),
+    idsetor INT NOT NULL,
+    idcargo INT NOT NULL,
+    CONSTRAINT CH_Colaborador CHECK (genero IN ('F' , 'M'))
+);
+
+ALTER TABLE colaboradores
+ADD CONSTRAINT FK_funcao FOREIGN KEY (idcargo) REFERENCES cargo (idcargo);
+
+ALTER TABLE colaboradores
+ADD CONSTRAINT FK_setor FOREIGN KEY (idsetor) REFERENCES setor (idsetor);
+
+INSERT INTO colaboradores VALUES ('1', 'Giovani Albuquerque', '471.223.445-02', 'M', 1, 2); 
+INSERT INTO colaboradores VALUES ('2', 'David Melo', '899.990.234-13', 'M', 2, 2); 
+INSERT INTO colaboradores VALUES ('3', 'Gabriela', '423.123.845-12', 'F', 3, 1); 
+
+INSERT INTO cargo VALUES ('1', 'Assistente de BD', 'Gestão de T.I.'); 
+INSERT INTO cargo VALUES ('2', 'Analista de Banco de Dados Junior', 'Gestão de T.I.'); 
+INSERT INTO cargo VALUES ('3', 'Analista de Banco de Dados Sênior', 'Gestão de T.I.'); 
+
+INSERT INTO setor VALUES ('1', 'Sistemas da Informação', 'Divisão de T.I'); 
+INSERT INTO setor VALUES ('2', 'Desenvolvimento de Softwares', 'Divisão de T.I'); 
+
+SELECT * FROM Colaboradores; 
